@@ -1,0 +1,97 @@
+<div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 dashboard_right">
+  <div class="dashboard_right_wrapper">
+    <div class="dashboard1_div1 ">
+      <h4> Add User</h4>
+      <div class="dashboard1form">
+        <form role="form" novalidate [formGroup]="dataForm" (ngSubmit)="dosubmit(dataForm.value)">
+
+          <div class="form-group" ngClass="{{haserrorcls('firstname')}}">
+            <label class="col-sm-2 control-label">First Name</label>
+            <input type="text" class="form-control" placeholder="First Name" [formControl]="dataForm.controls['firstname']">
+            <div class="help-block" ngClass="{{showerrorcls('firstname')}}">First Name is required</div>
+          </div>
+          <div class="form-group" ngClass="{{haserrorcls('lastname')}}">
+            <label class="col-sm-2 control-label">Last Name</label>
+            <input type="text" class="form-control" placeholder="Last Name" [formControl]="dataForm.controls['lastname']">
+            <div class="help-block" ngClass="{{showerrorcls('lastname')}}">Last Name is required</div>
+          </div>
+          <div class="form-group" ngClass="{{haserrorcls('email')}}">
+            <label class="col-sm-2 control-label">Email</label>
+            <input type="email" class="form-control" placeholder="Email" [formControl]="dataForm.controls['email']">
+            <div class="help-block" ngClass="{{showerrorcls('email','required')}}">Email is required</div>
+            <div class="help-block" ngClass="{{showerrorcls('email','validemail')}}">Enter valid email id</div>
+            <div class="help-block" ngClass="{{showerrorcls1('email')}}">This email is already used.</div>
+          </div>
+          <div class="form-group" ngClass="{{haserrorcls('password')}}">
+            <label class="col-sm-2 control-label">Password</label>
+            <input type="password" class="form-control" placeholder="Password" [formControl]="dataForm.controls['password']">
+            <div class="help-block" ngClass="{{showerrorcls('password','required')}}">Password is required</div>
+            <div class="help-block" ngClass="{{showerrorcls('password','alphanumeric2')}}">Password must contain at least one lower case character. Password must contain at least one upper case character. Password must contain at least one integer .Password must contain at least one special charecter and must be more than 8 charecters such as '^!,@,#,$,%,^,&,*,(,),_,+,' !!</div>
+          </div>
+          <div class="form-group" ngClass="{{haserrorcls('confpassword')}}">
+            <label class="col-sm-2 control-label">Confirm Password</label>
+            <input type="password" class="form-control" placeholder="Confirm Password"  [formControl]="dataForm.controls['confpassword']">
+            <div class="help-block" ngClass="{{showerrorcls('confpassword')}}">Confirm Password is required</div>
+            <div class="help-block" ngClass="{{showerrorcls('confpassword','match')}}">Password does not match</div>
+          </div>
+          <div class="form-group" ngClass="{{haserrorcls('address')}}">
+            <label class="col-sm-2 control-label">Address</label>
+            <input type="text" class="form-control" placeholder="Address" [formControl]="dataForm.controls['address']">
+            <div class="help-block" ngClass="{{showerrorcls('address')}}">Address is required</div>
+          </div>
+          <div class="form-group" ngClass="{{haserrorcls('city')}}">
+            <label class="col-sm-2 control-label">City</label>
+            <input type="text" class="form-control" placeholder="City" [formControl]="dataForm.controls['city']">
+            <div class="help-block" ngClass="{{showerrorcls('city')}}">City is required</div>
+          </div>
+          <div class="form-group" ngClass="{{haserrorcls('state')}}">
+            <label class="col-sm-2 control-label">State</label>
+            <input type="text" class="form-control" placeholder="State" [formControl]="dataForm.controls['state']">
+            <div class="help-block" ngClass="{{showerrorcls('state')}}">State is required</div>
+          </div>
+          <div class="form-group" ngClass="{{haserrorcls('zip')}}">
+            <label class="col-sm-2 control-label">Zip</label>
+            <input type="text" class="form-control" placeholder="Zip" [formControl]="dataForm.controls['zip']">
+            <div class="help-block" ngClass="{{showerrorcls('zip')}}">Zip is required</div>
+          </div>
+          <div class="form-group" ngClass="{{haserrorcls('phone')}}">
+            <label class="col-sm-2 control-label">Phone No</label>
+            <input type="text" class="form-control" placeholder="Phone No" [formControl]="dataForm.controls['phone']">
+          </div>
+          <div class="form-group" ngClass="{{haserrorcls('account_type')}}">
+            <label class="col-sm-2 control-label">Account Type</label>
+            <select class="form-control" [formControl]="dataForm.controls['account_type']">
+              <option value="Savings">Savings</option>
+              <option value="Current">Current</option>
+            </select>
+          </div>
+          <div class="form-group" ngClass="{{haserrorcls('account_no')}}">
+            <label class="col-sm-2 control-label">Account No</label>
+            <input type="text" class="form-control" placeholder="Account No"  [formControl]="dataForm.controls['account_no']">
+            <div class="help-block" ngClass="{{showerrorcls('account_no')}}">Account No is required</div>
+            <div class="help-block" ngClass="{{showerrorcls('account_no','number')}}">Account No is invalid. Enter only numeric value.</div>
+            <div class="help-block" ngClass="{{showerrorcls1('account_no')}}">This account number is already used.</div>
+          </div>
+          <div class="form-group" ngClass="{{haserrorcls('currency')}}">
+            <label class="col-sm-2 control-label">Currency</label>
+            <select class="form-control" [formControl]="dataForm.controls['currency']">
+              <option value="USD">USD</option>
+              <option value="GBP">GBP</option>
+              <option value="EUR">EUR</option>
+            </select>
+          </div>
+          <div class="form-group" ngClass="{{haserrorcls('initial_fund')}}">
+            <label class="col-sm-2 control-label">Initial Fund</label>
+            <input type="text" class="form-control" [formControl]="dataForm.controls['initial_fund']">
+          </div>
+
+          <input type="submit" value="Save" class="loginbtn2">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

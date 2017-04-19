@@ -1,0 +1,57 @@
+<div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 dashboard_right">
+  <div class="dashboard_right_wrapper">
+    <div class="dashboard1_div1 table-responsive">
+      <h4>User List</h4>
+      <div style="float: left; padding-bottom: 10px;">
+        Search : <input type="text" #listFilter (keyup)="0">
+      </div>
+      <div style="float: right; padding-bottom: 10px;"><a [routerLink]="['/add-user']" class="adduserlink">Add User</a></div>
+      <div class="clearfix"></div>
+
+      <div class="tablediv">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Added On</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+          <tr *ngFor="let item of datalist | filteredlist:listFilter.value; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{item.firstname}} {{item.lastname}}</td>
+            <td>{{item.email}}</td>
+            <td>{{item.phone}}</td>
+            <td>{{ item.added_time*1000 | date:'MMM d, yyyy'}}</td>
+            <td><a href="javascript:void(0);" (click)="statuscng(item)">{{(item.status==1)?'Active':'Inactive'}}</a></td>
+            <td>
+              <a [routerLink]="['/edit-user',item._id]" *ngIf="superAdmin == 1 || item.supradmin==0">Edit</a>
+              <a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" (click)="delConfirm(item._id)" *ngIf="superAdmin == 1 || item.supradmin==0">Delete</a>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" tabindex="-1" role="dialog"  id="myModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Confirm delete</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure to delete this user?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="admindel()">Yes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -1,0 +1,30 @@
+<div class="container-fluid login_bg">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td valign="middle"><div class="login_wrapper"> <img src="assets/images/logo.jpg" style="display:block; margin:0 auto; max-width:100%;">
+        <h2>2nd Step Verification</h2>
+        <div class="login_formbox">
+          <form role="form" novalidate [formGroup]="dataForm" (ngSubmit)="dosubmit(dataForm.value)">
+            <div class="help-block">Check your email and enter access code from your email.</div>
+            <div class="form-group" ngClass="{{haserrorcls('access_code')}}">
+              <label>Access Code:</label>
+              <input type="text" [formControl]="dataForm.controls['access_code']">
+              <div class="help-block" ngClass="{{showerrorcls('access_code')}}">Access Code is required</div>
+              <div class="help-block" *ngIf="is_error">{{error_msg}}</div>
+            </div>
+
+
+
+            <input type="submit" value="login" class="loginbtn">
+
+            <!--<a href="javascript:void(0)" class="fpassword"> forgot password </a>-->
+            <div class="clearfix"></div>
+          </form>
+
+
+
+        </div>
+      </div></td>
+    </tr>
+  </table>
+</div>

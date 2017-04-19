@@ -1,0 +1,52 @@
+<div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 dashboard_right">
+  <div class="dashboard_right_wrapper">
+    <div class="dashboard1_div1 ">
+      <h4> Transfer Money</h4>
+      <div class="dashboard1form">
+        <form role="form" novalidate [formGroup]="dataForm" (ngSubmit)="dosubmit(dataForm.value)">
+
+          <div class="form-group" ngClass="{{haserrorcls('source_account')}}">
+            <label>Source account</label>
+            <select [formControl]="dataForm.controls['source_account']">
+              <option value="">Select One</option>
+              <option *ngFor="let item of accounts; let i = index" value="{{item.account_no}}">{{item.account_no}} - {{item.account_type}} ({{getAcBal(item.account_no)}} {{item.currency}})</option>
+            </select>
+            <div class="help-block" ngClass="{{showerrorcls('source_account')}}">Source account is required</div>
+          </div>
+          <div class="form-group" ngClass="{{haserrorcls('dest_account')}}">
+            <label>Account number</label>
+            <select [formControl]="dataForm.controls['dest_account']">
+              <option value="">Select One</option>
+              <!--<option *ngFor="let item of allaccounts; let i = index" value="{{item.account_no}}">{{item.account_no}} - {{item.account_type}} ({{getAcBal(item.account_no)}} {{item.currency}})</option>-->
+              <option *ngFor="let item of allaccounts; let i = index" value="{{item.account_no}}">{{item.account_no}} - {{item.account_type}}</option>
+            </select>
+            <div class="help-block" ngClass="{{showerrorcls('dest_account')}}">Account number is required</div>
+          </div>
+          <div class="form-group" ngClass="{{haserrorcls('amount')}}">
+            <label>Instructed amount</label>
+            <input type="text" placeholder="Instructed amount" [formControl]="dataForm.controls['amount']">
+            <div class="help-block" ngClass="{{showerrorcls('amount')}}">Instructed amount is required</div>
+          </div>
+          <div class="form-group" ngClass="{{haserrorcls('currency')}}">
+            <label>Currency</label>
+            <select [formControl]="dataForm.controls['currency']">
+              <option value="USD">USD</option>
+              <option value="GBP">GBP</option>
+              <option value="EUR">EUR</option>
+            </select>
+          </div>
+          <div class="form-group" ngClass="{{haserrorcls('description')}}">
+            <label >Description</label>
+            <textarea placeholder="Description" [formControl]="dataForm.controls['description']"> </textarea>
+          </div>
+
+          <input type="submit" value="Save" class="loginbtn2">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

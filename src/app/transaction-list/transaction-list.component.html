@@ -1,0 +1,38 @@
+<div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 dashboard_right">
+  <div class="dashboard_right_wrapper">
+    <div class="dashboard1_div1 table-responsive">
+      <h4>Transaction List</h4>
+
+
+      <div class="table_topform">
+        <span class="span1">From : <ng2-datepicker [options]="{initialDate:fromdayin}" [(ngModel)]="fromd"></ng2-datepicker></span>
+        <span class="span1">To : <ng2-datepicker [options]="{initialDate:todayin}" [(ngModel)]="tod"></ng2-datepicker></span>
+        <input type="button" value="submit" (click)="getTrac()" class="subbtn2">
+      </div>
+
+
+      <div class="tablediv">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <th>Account No</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Currency</th>
+            <th>Status</th>
+          </tr>
+          <tr *ngFor="let item of transaction; let i = index">
+            <td>{{item.account_no}}</td>
+            <td>{{getDescription2(item)}}<br>Reference: {{item.description}}</td>
+            <td>{{(item.type == 1)?'Credit':'Debit'}}</td>
+            <td>{{ (item.time*1000) | date : "dd MMM yyyy"}}</td>
+            <td>{{(item.status == 3)?item.cancel_amount:item.amount}}</td>
+            <td>{{item.currency}}</td>
+            <td>{{getStatus(item)}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
