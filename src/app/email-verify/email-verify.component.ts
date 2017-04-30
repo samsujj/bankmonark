@@ -28,6 +28,7 @@ export class EmailVerifyComponent implements OnInit {
     this._http.post(link, data)
         .subscribe(res => {
           var result = res.json();
+          //this.router.navigate(['/reset-password/'+result.id+'/'+result.time+'/'+result.password]);
           this.router.navigate(['/login']);
         }, error => {
           console.log("Oooops!");

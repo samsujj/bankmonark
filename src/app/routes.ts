@@ -20,6 +20,12 @@ import {TransactionListComponent} from "./transaction-list/transaction-list.comp
 import {AllTransactionListComponent} from "./all-transaction-list/all-transaction-list.component";
 import {LoginVerificationComponent} from "./login-verification/login-verification.component";
 import {IplistComponent} from "./iplist/iplist.component";
+import {MyProfileComponent} from "./my-profile/my-profile.component";
+import {UpdateProfileComponent} from "./update-profile/update-profile.component";
+import {ChangePasswordComponent} from "./change-password/change-password.component";
+import {CurrencyComponent} from "./currency/currency.component";
+import {ForgotPasswordComponent} from "./forgot-password/forgot-password.component";
+import {ResetPasswordComponent} from "./reset-password/reset-password.component";
 
 const appRoutes: Routes = [
     // { path: '/**',component: AppComponent},
@@ -41,6 +47,12 @@ const appRoutes: Routes = [
     { path: 'all-transaction-list', component: AllTransactionListComponent},
     { path: 'statement', component: StatementComponent},
     { path: 'ip-track', component: IplistComponent},
+    { path: 'my-profile', component: MyProfileComponent},
+    { path: 'update-profile', component: UpdateProfileComponent},
+    { path: 'change-password', component: ChangePasswordComponent},
+    { path: 'currency', component: CurrencyComponent},
+    { path: 'forgot-password', component: ForgotPasswordComponent},
+    { path: 'reset-password/:str1/:str2/:str3', component: ResetPasswordComponent},
     { path: 'edit-user/:id', component: EdituserComponent},
     { path: 'header', component: HeaderComponent,outlet:'header'},
     { path: 'left', component: LeftComponent,outlet:'left'},

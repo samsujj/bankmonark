@@ -31,11 +31,15 @@
 
 .fpassword{ float:none; margin:10px auto;}
 .login_formbox .loginbtn{ float:none; margin:0 auto;}
-
-}
+    .tablepdfdiv{ width: 70%; margin: 0 auto;}
+    }
 
 @media(max-width:767px) {
     .table-responsive{ padding: 10px;}
+    .loader {
+        top:40%;
+        left: 41%;
+    }
 
 }
 
@@ -51,4 +55,16 @@
 
 @media(max-width:540px) {
 	 .dbblog{ width:90%; margin:0 auto; float:none; border-radius:5px; margin-bottom:15px;}
+    .loader {
+        top:40%;
+        left: 38%;
+    }
+}
+
+
+@media(max-width:360px) {
+    .loader {
+        top:40%;
+        left: 34%;
+    }
 }

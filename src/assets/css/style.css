@@ -299,6 +299,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a23e4c', end
 
 .datepicker-container[_ngcontent-c2]   .datepicker-input-container[_ngcontent-c2]   .datepicker-input-icon[_ngcontent-c2]   i[_ngcontent-c2]   svg[_ngcontent-c2]{ margin-right: 10px !important;}
 
+
+
+
 .subbtn2{
     background: rgba(162,62,76,1);
     background: -moz-linear-gradient(top, rgba(162,62,76,1) 0%, rgba(130,32,45,1) 100%);
@@ -324,3 +327,56 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a23e4c', end
     background: -ms-linear-gradient(top, rgba(162,62,76,1) 0%, rgba(130,32,45,1) 100%);
     background: linear-gradient(to bottom, rgba(162,62,76,1) 0%, rgba(130,32,45,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a23e4c', endColorstr='#82202d', GradientType=0 ); font-family:'OpenSans-Semibold'; font-size:14px; color:#fff!important; text-transform:uppercase; border:none; padding:8px 18px; border-radius:4px; text-align: center;}
+
+
+
+.loader {
+    border: 16px solid #e6dbbc; /* Light grey */
+    border-top: 16px solid #83212e; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    top:40%;
+    left: 44%;
+    z-index: 999;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+.tablepdfdiv{border: solid 1px #b6b1a4; padding: 10px; width: 767px; margin: 0 auto;   font-family:'OpenSans-Regular'; color: #000; background-color: #f8eed3;}
+.tablelogodiv{ width: 100%; text-align: right;}
+
+
+
+.pdfpdiv1{ margin: 10px 0; font-family:'OpenSans-Semibold'; font-size: 16px; line-height: 20px;}
+
+.pdfph3{font-family:'OpenSans-Semibold'; font-size: 20px; text-decoration: underline; margin: 0; padding:5px 0 0 0;}
+.pdfph4{font-family:'OpenSans-Semibold'; font-size: 20px;  margin: 25px 0 16px 0; padding:5px 0 8px 0; border-top: solid 1px #000; border-bottom: solid 1px #000;}
+
+.pdfpdiv2{  padding: 18px 0;}
+.pdfpdiv5{  padding: 0; margin:0 0 30px 0; width: 350px;}
+
+.pdfpdiv5 td{ border-bottom: dashed 1px #000; padding: 5px 0;}
+.pdfpdiv5 th{ border-bottom: dashed 1px #000; padding: 5px 0;font-family:'OpenSans-Semibold'; }
+
+.pdfpdiv6{  padding: 0; margin: 0; }
+.pdfpdiv6 td:not(.fa){  padding: 5px;  font-family:'OpenSans-Regular';}
+.pdfpdiv6 td{  padding: 5px;}
+.pdfpdiv6 th{ border-bottom: solid 1px #000; padding: 5px; font-family:'OpenSans-Regular'; background-color: #f8eed3;}
+
+.pdfpdiv6 tr:nth-child(odd){ background-color: #faf4e5;}
+
+.pdfpdiv7{  padding: 0; margin: 0; }
+.pdfpdiv7 td{  padding: 5px;  font-family:'OpenSans-Regular'; border-bottom: solid 1px #000;}
+
+.pdfpdiv8{  padding: 0; margin: 50px 0 0 0;  font-size: 12px; color: #aaa; line-height: 22px;}
+
+
+.mplabel{ font-family:'OpenSans-Semibold'; text-transform:uppercase; font-size:14px; color:#83212e;  text-align:left; }

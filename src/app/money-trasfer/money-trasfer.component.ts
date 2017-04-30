@@ -73,6 +73,7 @@ export class MoneyTrasferComponent implements OnInit {
         .subscribe(res => {
           var result = res.json();
           this.accounts = result.res;
+
         }, error => {
           console.log("Oooops!");
         });
@@ -101,6 +102,16 @@ export class MoneyTrasferComponent implements OnInit {
       return balance;
     }
 
+  }
+
+  cngAccount(ev){
+    var curAccount = ev.target.value;
+    for(let n in this.accounts){
+      var acc = this.accounts[n];
+      if(acc.account_no == curAccount){
+        (<FormControl>this.dataForm.controls['currency']).setValue(acc.currency);
+      }
+    }
   }
 
   haserrorcls(cntrlname){

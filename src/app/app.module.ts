@@ -28,6 +28,12 @@ import { AllTransactionListComponent } from './all-transaction-list/all-transact
 import { LoginVerificationComponent } from './login-verification/login-verification.component';
 import { IplistComponent } from './iplist/iplist.component';
 import { FilteredlistPipe } from './filteredlist.pipe';
+import { MyProfileComponent } from './my-profile/my-profile.component';
+import { UpdateProfileComponent } from './update-profile/update-profile.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { CurrencyComponent } from './currency/currency.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +57,13 @@ import { FilteredlistPipe } from './filteredlist.pipe';
     AllTransactionListComponent,
     LoginVerificationComponent,
     IplistComponent,
-    FilteredlistPipe
+    FilteredlistPipe,
+    MyProfileComponent,
+    UpdateProfileComponent,
+    ChangePasswordComponent,
+    CurrencyComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,

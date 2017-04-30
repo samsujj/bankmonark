@@ -1,36 +1,140 @@
 <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 dashboard_right">
   <div class="dashboard_right_wrapper">
-    <div class="dashboard1_div1 table-responsive">
+    <div class="dashboard1_div1 table-responsive" style="overflow-x: initial;">
       <h4>Statement</h4>
       <div class="table_topform">
         <span class="span1">Accounts :
-        <select *ngFor="let item of accounts; let i = index"><option>{{item.account_no}}</option></select></span>
+        <select *ngFor="let item of accounts; let i = index"  [(ngModel)]="selacc"><option value="{{item.account_no}}">{{item.account_no}}</option></select></span>
        <span class="span1"> From : <ng2-datepicker [options]="{initialDate:fromdayin}" [(ngModel)]="fromd"></ng2-datepicker></span>
         <span class="span1">To : <ng2-datepicker [options]="{initialDate:todayin}" [(ngModel)]="tod"></ng2-datepicker></span>
         <input type="button" value="submit" (click)="getTrac()" class="subbtn2">
       </div>
-      <div class="tablediv">
-        <table width="100%" border="0" cellspacing="0" cellpadding="0" *ngIf="totaltransaction">
+
+
+
+      <!--<div class="tablediv">
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" *ngIf="totaltransaction">
+        <tr>
+          <th>Account No</th>
+          <th>Description</th>
+          <th>Type</th>
+          <th>Date</th>
+          <th>Amount</th>
+          <th>Currency</th>
+          <th>Status</th>
+        </tr>
+        <tr *ngFor="let item of transaction; let i = index">
+          <td>{{item.account_no}}</td>
+          <td>{{getDescription2(item)}}<br>Reference: {{item.description}}</td>
+          <td>{{(item.type == 1)?'Credit':'Debit'}}</td>
+          <td>{{ (item.time*1000) | date : "dd MMM yyyy"}}</td>
+          <td>{{(item.status == 3)?item.cancel_amount:item.amount}}</td>
+          <td>{{item.currency}}</td>
+          <td>{{getStatus(item)}}</td>
+        </tr>
+      </table>
+    </div>-->
+    </div>
+
+
+    <div class="tablepdfdiv" *ngIf="showStatement">
+      <div class="tablelogodiv">
+        <img src="http://bankmonarch.westcoastvg.online/logo.jpg" style="width: 180px;">
+      </div>
+      <div class="pdfpdiv1">{{address}}<br/>{{city}}<br/>{{state}}</div>
+      <h3 class="pdfph3">FINANCIAL STATEMENT</h3>
+      <div class="pdfpdiv2">
+        <table width="100%" border="0" cellspacing="0" cellpadding="4" style="font-size: 14px; line-height: 26px; ">
           <tr>
-            <th>Account No</th>
-            <th>Description</th>
-            <th>Type</th>
-            <th>Date</th>
-            <th>Amount</th>
-            <th>Currency</th>
-            <th>Status</th>
+            <td width="10%">Name:</td>
+            <td width="90%">{{username}}</td>
           </tr>
-          <tr *ngFor="let item of transaction; let i = index">
-            <td>{{item.account_no}}</td>
-            <td>{{getDescription2(item)}}<br>Reference: {{item.description}}</td>
-            <td>{{(item.type == 1)?'Credit':'Debit'}}</td>
-            <td>{{ (item.time*1000) | date : "dd MMM yyyy"}}</td>
-            <td>{{(item.status == 3)?item.cancel_amount:item.amount}}</td>
-            <td>{{item.currency}}</td>
-            <td>{{getStatus(item)}}</td>
+          <tr>
+            <td width="10%">Number:</td>
+            <td  width="90%">{{selacc}}</td>
           </tr>
         </table>
       </div>
+      <h2 style="font-weight: normal; font-size: 16px; line-height: 22px; margin: 0; padding: 0;font-family:'OpenSans-Semibold'; ">Current Account Statement<br/>{{ (sttime*1000) | date : "d MMM yyyy"}} to {{ (endtime*1000) | date : "d MMM yyyy"}}</h2>
+      <h4 class="pdfph4">Your account summary</h4>
+      <div class="pdfpdiv5">
+        <table width="345px" border="0" cellspacing="0" cellpadding="0" style="font-size: 14px; line-height: 26px; ">
+          <tr>
+            <th width="50%" align="left" style="font-size: 14px;">At a glance</th>
+            <th width="50%" align="right">&nbsp;</th>
+          </tr>
+          <tr>
+            <td width="50%" align="left">Start balance</td>
+            <td width="50%" align="right" class="fa" style="display: table-cell;">{{(selcur=='USD')?'&#xf155;':((selcur=='EUR')?'&#xf153;':'&#xf154;')}}{{stBalance.toFixed(2)}}</td>
+          </tr>
+          <tr>
+            <td width="50%" align="left">Money In</td>
+            <td width="50%" align="right" class="fa" style="display: table-cell;">{{(selcur=='USD')?'&#xf155;':((selcur=='EUR')?'&#xf153;':'&#xf154;')}}{{moneyIn.toFixed(2)}}</td>
+          </tr>
+          <tr>
+            <td width="50%" align="left">Money Out</td>
+            <td width="50%" align="right" class="fa" style="display: table-cell;">{{(selcur=='USD')?'&#xf155;':((selcur=='EUR')?'&#xf153;':'&#xf154;')}}{{moneyOut.toFixed(2)}}</td>
+          </tr>
+          <tr>
+            <td width="50%" align="left">End balance</td>
+            <td width="50%" align="right" class="fa" style="display: table-cell;">{{(selcur=='USD')?'&#xf155;':((selcur=='EUR')?'&#xf153;':'&#xf154;')}}{{endBalance.toFixed(2)}}</td>
+          </tr>
+        </table>
+      </div>
+      <h4 class="pdfph4" style="margin-bottom: 0px;">Your transactions</h4>
+      <div class="pdfpdiv6">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2" style="font-size: 14px; line-height:22px">
+          <tr>
+            <th width="15%" style="text-align: center;" valign="top">Date</th>
+            <th width="42%" style="text-align: center;" valign="top">Description</th>
+            <th width="15%" style="text-align: center;" valign="top">Money out</th>
+            <th width="14%" style="text-align: center;" valign="top">Money in</th>
+            <th width="14%" style="text-align: center;" valign="top">Balance</th>
+          </tr>
+          <tr >
+            <td width="15%" align="left" valign="top">{{ (sttime*1000) | date : "d MMM yyyy"}}</td>
+            <td width="42%" align="left" valign="top">Start balance</td>
+            <td width="15%" valign="top" style="text-align: right; padding-right: 30px;">&nbsp;</td>
+            <td width="14%" valign="top" style="text-align: right; padding-right: 30px;">&nbsp;</td>
+            <td width="14%" valign="top" style="text-align: right; padding-right: 30px; display: table-cell;" class="fa">{{(selcur=='USD')?'&#xf155;':((selcur=='EUR')?'&#xf153;':'&#xf154;')}}{{stBalance.toFixed(2)}}</td>
+          </tr>
+          <tr *ngFor="let item of transaction; let i = index">
+            <td width="15%" align="left" valign="top">{{ (item.time*1000) | date : "d MMM yyyy"}}</td>
+            <td width="42%" align="left" valign="top"><span style="line-height: 18px;">{{getDescription2(item)}}<br>Reference: {{item.description}}</span></td>
+            <td width="15%" valign="top" style="text-align: right; padding-right: 30px; display: table-cell;" class="fa">{{(item.type == 2)?((selcur=='USD')?'&#xf155;':((selcur=='EUR')?'&#xf153;':'&#xf154;'))+item.amount.toFixed(2):''}}</td>
+            <td width="14%" valign="top" style="text-align: right; padding-right: 30px; display: table-cell;" class="fa">{{(item.type == 1)?((selcur=='USD')?'&#xf155;':((selcur=='EUR')?'&#xf153;':'&#xf154;'))+item.amount.toFixed(2):''}}</td>
+            <td width="14%" valign="top" style="text-align: right; padding-right: 30px; display: table-cell;" class="fa">{{(selcur=='USD')?'&#xf155;':((selcur=='EUR')?'&#xf153;':'&#xf154;')}}{{item.last_balance.toFixed(2)}}</td>
+          </tr>
+          <tr>
+            <td width="15%" align="left" valign="top">{{ (endtime*1000) | date : "d MMM yyyy"}}</td>
+            <td width="42%" align="left" valign="top">End balance</td>
+            <td width="15%" valign="top" style="text-align: right; padding-right: 30px;">&nbsp;</td>
+            <td width="14%" valign="top" style="text-align: right; padding-right: 30px;">&nbsp;</td>
+            <td width="14%" valign="top" style="text-align: right; padding-right: 30px; display: table-cell;" class="fa">{{(selcur=='USD')?'&#xf155;':((selcur=='EUR')?'&#xf153;':'&#xf154;')}}{{endBalance.toFixed(2)}}</td>
+          </tr>
+        </table>
+      </div>
+      <!--<h4 class="pdfph4" style="margin-bottom: 0px;">Account details</h4>
+      <div class="pdfpdiv7">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" style="font-size: 14px; line-height:22px">
+          <tr>
+            <td width="40%" align="left" valign="top">Overdraft limit</td>
+            <td width="60%" align="left" valign="top">$0.00</td>
+          </tr>
+          <tr>
+            <td width="40%" align="left" valign="top">Reserve</td>
+            <td width="60%" align="left" valign="top">$0.00</td>
+          </tr>
+        </table>
+      </div>-->
+      <div class="pdfpdiv8">Correspondence: BANK MONARCH Premier Relationship Support, Tel: 0203 086 7070<br/>
+      BANK MONARCH LTD. Reg.No. 6727679. Registered in England. Reg. Office: 9 Devonshire Square, London EC2M 4YF</div>
     </div>
+
+
+    <div class="tablepdfdiv" *ngIf="showStatement" style="background: none; border: none; text-align: center;">
+      <input type="button" value="DOWNLOAD AS PDF" (click)="downloadpdf()" class="subbtn2">
+    </div>
+
   </div>
 </div>

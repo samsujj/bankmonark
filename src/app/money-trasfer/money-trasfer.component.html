@@ -7,7 +7,7 @@
 
           <div class="form-group" ngClass="{{haserrorcls('source_account')}}">
             <label>Source account</label>
-            <select [formControl]="dataForm.controls['source_account']">
+            <select [formControl]="dataForm.controls['source_account']" (change)="cngAccount($event)">
               <option value="">Select One</option>
               <option *ngFor="let item of accounts; let i = index" value="{{item.account_no}}">{{item.account_no}} - {{item.account_type}} ({{getAcBal(item.account_no)}} {{item.currency}})</option>
             </select>
@@ -29,11 +29,12 @@
           </div>
           <div class="form-group" ngClass="{{haserrorcls('currency')}}">
             <label>Currency</label>
-            <select [formControl]="dataForm.controls['currency']">
+            <!--<select [formControl]="dataForm.controls['currency']">
               <option value="USD">USD</option>
               <option value="GBP">GBP</option>
               <option value="EUR">EUR</option>
-            </select>
+            </select>-->
+            <input type="text" [formControl]="dataForm.controls['currency']" readonly>
           </div>
           <div class="form-group" ngClass="{{haserrorcls('description')}}">
             <label >Description</label>
