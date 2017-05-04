@@ -236,10 +236,10 @@ export class StatementComponent implements OnInit {
     var description = '';
     if(item.type == 1 && item.transfer_from != ''){
       description += 'Transfer money from account: '+item.transfer_from;
-    }
-
-    if(item.type == 2 && item.transfer_to != ''){
+    }else if(item.type == 2 && item.transfer_to != ''){
       description += 'Transfer money to account: '+item.transfer_to;
+    }else{
+      description = 'Added by Admin';
     }
 
     return description;

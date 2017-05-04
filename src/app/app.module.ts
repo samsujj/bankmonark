@@ -34,6 +34,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { CurrencyComponent } from './currency/currency.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { AddFundComponent } from './add-fund/add-fund.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     ChangePasswordComponent,
     CurrencyComponent,
     ForgotPasswordComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    AddFundComponent
   ],
   imports: [
     BrowserModule,

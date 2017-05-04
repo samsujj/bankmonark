@@ -1,0 +1,20 @@
+<div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 dashboard_right">
+  <div class="dashboard_right_wrapper">
+    <div *ngIf="userdetails" class="dashboard1_div1">
+      <h4>My Profile</h4>
+      <div class="tablediv" style="margin-bottom: 10px;">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr><td style="font-size: 14px;"><label class="mplabel">Name :</label> {{userdetails.firstname}} {{userdetails.lastname}}</td></tr>
+          <tr><td style="font-size: 14px;"><label class="mplabel">Email :</label> {{userdetails.email}}</td></tr>
+          <tr><td style="font-size: 14px;"><label class="mplabel">Address :</label> {{userdetails.address}}</td></tr>
+          <tr><td style="font-size: 14px;"><label class="mplabel">City :</label> {{userdetails.city}}</td></tr>
+          <tr><td style="font-size: 14px;"><label class="mplabel">State :</label> {{userdetails.state}}</td></tr>
+          <tr><td style="font-size: 14px;"><label class="mplabel">Zip :</label> {{userdetails.zip}}</td></tr>
+        </table>
+      </div>
+      <div style="clear: both;"></div>
+      <a class="adduserlink" style="width: auto; display: inline-block" [routerLink]="['/update-profile']">Update Profile</a>
+      <a class="adduserlink" style="width: auto; display: inline-block" [routerLink]="['/change-password']">Change Password</a>
+    </div>
+  </div>
+</div>

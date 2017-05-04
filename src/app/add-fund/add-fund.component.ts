@@ -5,11 +5,11 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
 
 @Component({
-  selector: 'app-money-trasfer',
-  templateUrl: './money-trasfer.component.html',
-  styleUrls: ['./money-trasfer.component.css']
+  selector: 'app-add-fund',
+  templateUrl: './add-fund.component.html',
+  styleUrls: ['./add-fund.component.css']
 })
-export class MoneyTrasferComponent implements OnInit {
+export class AddFundComponent implements OnInit {
   public dataForm:FormGroup;
   private fb;
   private userid;
@@ -24,8 +24,7 @@ export class MoneyTrasferComponent implements OnInit {
 
   private userdata:CookieService;
 
-  constructor(fb: FormBuilder,private _http: Http,private router: Router,userdata:CookieService) {
-    this.fb = fb;
+  constructor(fb: FormBuilder,private _http: Http,private router: Router,userdata:CookieService) {     this.fb = fb;
     this.accounts = [];
     this.allaccounts = [];
     this.balancearr = [];
@@ -34,20 +33,14 @@ export class MoneyTrasferComponent implements OnInit {
     if(typeof (userdata2) == 'undefined'){
       this.router.navigateByUrl('/login');
     }else{
-      this.userid = userdata2._id;
-      this.getAccountNo();
       this.getUserList();
-
-      this.getBalancearr();
     }
-
   }
 
   ngOnInit() {
     this.isSubmit = false;
 
     this.dataForm = this.fb.group({
-      source_account: ["", Validators.required],
       dest_account: ["", Validators.required],
       amount: ["", Validators.required],
       description: [""],
@@ -79,36 +72,8 @@ export class MoneyTrasferComponent implements OnInit {
         });
   }
 
-  getBalancearr(){
-    var link = 'http://132.148.90.242:2007/balance';
-    var data = {id : this.userid};
-
-    this._http.post(link, data)
-        .subscribe(res => {
-          var result = res.json();
-          this.balancearr = result.res;
-        }, error => {
-          console.log("Oooops!");
-        });
-  }
-
-  getAccountNo(){
-    var link = 'http://132.148.90.242:2007/getAccounts';
-    var data = {id : this.userid};
-
-    this._http.post(link, data)
-        .subscribe(res => {
-          var result = res.json();
-
-          this.accounts = result.res;
-
-        }, error => {
-          console.log("Oooops!");
-        });
-
-  }
   getAllAccountNo(){
-    var link = 'http://132.148.90.242:2007/getOtherAccounts';
+    var link = 'http://132.148.90.242:2007/getAllAccounts';
     var data = {id : this.userid};
 
     this._http.post(link, data)
@@ -123,32 +88,10 @@ export class MoneyTrasferComponent implements OnInit {
             }
           }
 
-
         }, error => {
           console.log("Oooops!");
         });
 
-  }
-
-  getAcBal(account_no){
-    var balance = this.balancearr[account_no];
-
-    if(typeof (balance) == 'undefined'){
-      return 0;
-    }else{
-      return balance;
-    }
-
-  }
-
-  cngAccount(ev){
-    var curAccount = ev.target.value;
-    for(let n in this.accounts){
-      var acc = this.accounts[n];
-      if(acc.account_no == curAccount){
-        (<FormControl>this.dataForm.controls['currency']).setValue(acc.currency);
-      }
-    }
   }
 
   haserrorcls(cntrlname){
@@ -165,24 +108,23 @@ export class MoneyTrasferComponent implements OnInit {
     return 'hide';
   }
 
-  dosubmit(formval){
+  dosubmit(formval) {
     this.isSubmit = true;
 
-    if(this.dataForm.valid){
-      var link = 'http://132.148.90.242:2007/fundtransfer';
-      var data = {source_account: formval.source_account,dest_account: formval.dest_account,amount: formval.amount,description: formval.description,currency: formval.currency};
+    if (this.dataForm.valid) {
+      var link = 'http://132.148.90.242:2007/addfund';
+      var data = {dest_account: formval.dest_account,amount: formval.amount,description: formval.description,currency: formval.currency};
 
 
       this._http.post(link, data)
           .subscribe(res => {
 
-            this.router.navigateByUrl('/dashboard(header:header//left:left)');
+            this.router.navigateByUrl('/admin-dashboard(header:header//left:left)');
 
           }, error => {
             console.log("Oooops!");
           });
     }
-
   }
 
 }

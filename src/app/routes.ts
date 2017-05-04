@@ -26,6 +26,7 @@ import {ChangePasswordComponent} from "./change-password/change-password.compone
 import {CurrencyComponent} from "./currency/currency.component";
 import {ForgotPasswordComponent} from "./forgot-password/forgot-password.component";
 import {ResetPasswordComponent} from "./reset-password/reset-password.component";
+import {AddFundComponent} from "./add-fund/add-fund.component";
 
 const appRoutes: Routes = [
     // { path: '/**',component: AppComponent},
@@ -43,6 +44,7 @@ const appRoutes: Routes = [
     { path: 'user-list', component: UserlistComponent},
     { path: 'add-user', component: AdduserComponent},
     { path: 'money-transfer', component: MoneyTrasferComponent},
+    { path: 'add-fund', component: AddFundComponent},
     { path: 'transaction-list', component: TransactionListComponent},
     { path: 'all-transaction-list', component: AllTransactionListComponent},
     { path: 'statement', component: StatementComponent},

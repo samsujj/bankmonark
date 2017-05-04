@@ -23,6 +23,7 @@ export class AdminDashboardComponent implements OnInit {
   public accounts;
   public balancearr;
   public transaction;
+  private userIdList;
 
   constructor(fb: FormBuilder,private _http: Http,private router: Router,userdata:CookieService) {
     this.fb = fb;
@@ -37,8 +38,9 @@ export class AdminDashboardComponent implements OnInit {
       this.userid = userdata2._id;
 
       this.getUserDetails();
+      this.getUserList();
       this.getBalancearr();
-      this.getAccountNo();
+
       this.getTransaction();
 
     }
@@ -82,6 +84,30 @@ export class AdminDashboardComponent implements OnInit {
         });
   }
 
+  getUserList(){
+    var link = 'http://132.148.90.242:2007/user-list';
+    var data = {};
+
+
+    this._http.post(link, data)
+        .subscribe(res => {
+          var result = res.json();
+
+          result = result.res;
+
+          this.userIdList = [];
+
+          for(var n in result){
+            this.userIdList.push(result[n]._id);
+          }
+
+          this.getAccountNo();
+
+        }, error => {
+          console.log("Oooops!");
+        });
+  }
+
   getAccountNo(){
     var link = 'http://132.148.90.242:2007/getAllAccounts';
     var data = {id : this.userid};
@@ -90,7 +116,6 @@ export class AdminDashboardComponent implements OnInit {
         .subscribe(res => {
           var result = res.json();
           this.accounts = result.res;
-          console.log(this.accounts);
         }, error => {
           console.log("Oooops!");
         });
@@ -126,10 +151,10 @@ export class AdminDashboardComponent implements OnInit {
     var description = '';
     if(item.type == 1 && item.transfer_from != ''){
       description += 'Transfer money from account: '+item.transfer_from;
-    }
-
-    if(item.type == 2 && item.transfer_to != ''){
+    }else if(item.type == 2 && item.transfer_to != ''){
       description += 'Transfer money to account: '+item.transfer_to;
+    }else{
+      description = 'Added by Admin';
     }
 
     return description;
@@ -146,6 +171,14 @@ export class AdminDashboardComponent implements OnInit {
       return 'Approved';
 
     return '';
+  }
+
+  getAccountStatus(item){
+    if(this.userIdList.indexOf(item.user_id) > -1){
+      return 'Active';
+    }else{
+      return 'Inactive';
+    }
   }
 
 }
