@@ -20,13 +20,15 @@ export class LoginComponent implements OnInit {
   public error_msg;
 
   private userdata:CookieService;
+  private currenttime:CookieService;
   private userdetails;
 
   private ipaddress;
 
-  constructor(fb: FormBuilder,private _http: Http,private router: Router,userdata:CookieService) {
+  constructor(fb: FormBuilder,private _http: Http,private router: Router,userdata:CookieService,currenttime:CookieService) {
     this.fb = fb;
     this.userdata = userdata;
+    this.currenttime = currenttime;
     this.userdetails=this.userdata.getObject('userdetails');
 
     if(typeof (this.userdetails) != 'undefined'){
@@ -104,6 +106,7 @@ export class LoginComponent implements OnInit {
 
               if(data2.item.supradmin == 1){
                 this.userdata.putObject('userdetails', data2.item);
+                this.currenttime.putObject('currenttime', Math.floor(Date.now()));
                 this.router.navigateByUrl('/admin-dashboard(header:header//left:left)');
               }else{
                 this.userdata.putObject('userdetailstemp', data2.item);

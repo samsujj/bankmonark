@@ -16,6 +16,7 @@ export class AdduserComponent implements OnInit {
   private isemailvalidate;
   private passmatchvalidate;
   private alphanpassvalidate;
+  private namevalidate;
   private existf;
 
   constructor(fb: FormBuilder,private _http: Http,private router: Router) {
@@ -28,10 +29,13 @@ export class AdduserComponent implements OnInit {
     this.isemailvalidate = false;
     this.passmatchvalidate = false;
     this.alphanpassvalidate = false;
+    this.namevalidate = false;
 
     this.dataForm = this.fb.group({
-      firstname: ["", Validators.required],
-      lastname: ["", Validators.required],
+      firstname: [""],
+      lastname: [""],
+      company: [""],
+      note: [""],
       email: ["", Validators.compose([Validators.required,Validators.email])],
       //email: ["", Validators.email],
       password: ["", Validators.compose([Validators.required, Validators.minLength(8)])],
@@ -59,6 +63,24 @@ export class AdduserComponent implements OnInit {
         }
       }
     }*/
+
+
+    if((cntrlname == 'firstname') && this.isSubmit){
+      if(this.dataForm.controls['firstname'].value == '' && this.dataForm.controls['company'].value == '') {
+        return 'has-error';
+      }else{
+        return '';
+      }
+    }
+
+    if((cntrlname == 'lastname') && this.isSubmit){
+      if(this.dataForm.controls['lastname'].value == ''  && this.dataForm.controls['company'].value == '') {
+        return 'has-error';
+      }else{
+        return '';
+      }
+    }
+
     if(cntrlname == 'confpassword' && this.isSubmit){
       if(this.dataForm.controls[cntrlname].valid) {
         if(this.dataForm.controls['password'].value == this.dataForm.controls['confpassword'].value){
@@ -123,6 +145,22 @@ export class AdduserComponent implements OnInit {
         return 'hide';
       }
     }*/
+
+    if((cntrlname == 'firstname') && this.isSubmit){
+      if(this.dataForm.controls['firstname'].value == '' && this.dataForm.controls['company'].value == '') {
+        return '';
+      }else{
+        return 'hide';
+      }
+    }
+
+    if((cntrlname == 'lastname') && this.isSubmit){
+      if(this.dataForm.controls['lastname'].value == '' && this.dataForm.controls['company'].value == '') {
+        return '';
+      }else{
+        return 'hide';
+      }
+    }
 
     if(cntrlname == 'email' && this.isSubmit){
       if(!this.dataForm.controls[cntrlname].valid){
@@ -244,6 +282,14 @@ export class AdduserComponent implements OnInit {
 
     this.existf = '';
 
+    this.namevalidate=false;
+    this.alphanpassvalidate=false;
+    this.passmatchvalidate=false;
+
+    if((this.dataForm.controls['firstname'].value != '' && this.dataForm.controls['lastname'].value != '') || this.dataForm.controls['company'].value != ''){
+      this.namevalidate = true;
+    }
+
     if(this.dataForm.controls['password'].value == this.dataForm.controls['confpassword'].value){
       this.passmatchvalidate = true;
     }
@@ -282,10 +328,11 @@ export class AdduserComponent implements OnInit {
       }
     }
 
-    this.isSubmit = true;
-    if(this.dataForm.valid && this.passmatchvalidate && this.alphanpassvalidate){
+     this.isSubmit = true;
+    if(this.dataForm.valid && this.passmatchvalidate && this.alphanpassvalidate && this.namevalidate){
+
       var link = 'http://132.148.90.242:2007/add-user';
-      var data = {firstname: formval.firstname,lastname: formval.lastname,email: formval.email,password: formval.password,phone: formval.phone,account_type: formval.account_type,currency: formval.currency,initial_fund: formval.initial_fund,account_no: formval.account_no,address: formval.address,city: formval.city,state: formval.state,zip: formval.zip};
+      var data = {firstname: formval.firstname,lastname: formval.lastname,email: formval.email,password: formval.password,phone: formval.phone,account_type: formval.account_type,currency: formval.currency,initial_fund: formval.initial_fund,account_no: formval.account_no,address: formval.address,city: formval.city,state: formval.state,zip: formval.zip,company: formval.company,note:formval.note};
 
 
       this._http.post(link, data)

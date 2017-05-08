@@ -16,11 +16,15 @@ export class EdituserComponent implements OnInit {
   private isSubmit;
   private id;
 
+  public namevalidate;
+
   constructor(fb: FormBuilder,private _http: Http,private router: Router, private route: ActivatedRoute) {
     this.fb = fb;
   }
 
   ngOnInit() {
+
+    this.namevalidate = false;
 
     this.route.params.subscribe(params => {
       this.id = params['id'];
@@ -32,9 +36,11 @@ export class EdituserComponent implements OnInit {
     this.isSubmit = false;
 
     this.dataForm = this.fb.group({
-      firstname: ["", Validators.required],
-      lastname: ["", Validators.required],
+      firstname: [""],
+      lastname: [""],
       email: ["", Validators.required],
+      company: [""],
+      note: [""],
       address: ["", Validators.required],
       city: ["", Validators.required],
       state: ["", Validators.required],
@@ -44,6 +50,22 @@ export class EdituserComponent implements OnInit {
   }
 
   haserrorcls(cntrlname){
+    if((cntrlname == 'firstname') && this.isSubmit){
+      if(this.dataForm.controls['firstname'].value == '' && this.dataForm.controls['company'].value == '') {
+        return 'has-error';
+      }else{
+        return '';
+      }
+    }
+
+    if((cntrlname == 'lastname') && this.isSubmit){
+      if(this.dataForm.controls['lastname'].value == ''  && this.dataForm.controls['company'].value == '') {
+        return 'has-error';
+      }else{
+        return '';
+      }
+    }
+
     if(!this.dataForm.controls[cntrlname].valid && this.isSubmit)
       return 'has-error';
 
@@ -51,6 +73,23 @@ export class EdituserComponent implements OnInit {
   }
 
   showerrorcls(cntrlname,type='reuired'){
+
+    if((cntrlname == 'firstname') && this.isSubmit){
+      if(this.dataForm.controls['firstname'].value == '' && this.dataForm.controls['company'].value == '') {
+        return '';
+      }else{
+        return 'hide';
+      }
+    }
+
+    if((cntrlname == 'lastname') && this.isSubmit){
+      if(this.dataForm.controls['lastname'].value == '' && this.dataForm.controls['company'].value == '') {
+        return '';
+      }else{
+        return 'hide';
+      }
+    }
+
     if(!this.dataForm.controls[cntrlname].valid && this.isSubmit)
       return '';
 
@@ -77,6 +116,8 @@ export class EdituserComponent implements OnInit {
             (<FormControl>this.dataForm.controls['city']).setValue(userdet.city);
             (<FormControl>this.dataForm.controls['state']).setValue(userdet.state);
             (<FormControl>this.dataForm.controls['zip']).setValue(userdet.zip);
+            (<FormControl>this.dataForm.controls['company']).setValue(userdet.company);
+            (<FormControl>this.dataForm.controls['note']).setValue(userdet.note);
           }else{
             this.router.navigate(['/user-list']);
           }
@@ -86,10 +127,16 @@ export class EdituserComponent implements OnInit {
   }
 
   dosubmit(formval){
+    this.namevalidate = false;
+
+    if((this.dataForm.controls['firstname'].value != '' && this.dataForm.controls['lastname'].value != '') || this.dataForm.controls['company'].value != ''){
+      this.namevalidate = true;
+    }
+
     this.isSubmit = true;
-    if(this.dataForm.valid){
+    if(this.dataForm.valid && this.namevalidate){
       var link = 'http://132.148.90.242:2007/edit-user';
-      var data = {firstname: formval.firstname,lastname: formval.lastname,phone: formval.phone,address: formval.address,city: formval.city,state: formval.state,zip: formval.zip,id: this.id};
+      var data = {firstname: formval.firstname,lastname: formval.lastname,phone: formval.phone,address: formval.address,city: formval.city,state: formval.state,zip: formval.zip,id: this.id,company: formval.company,note:formval.note};
 
 
       this._http.post(link, data)

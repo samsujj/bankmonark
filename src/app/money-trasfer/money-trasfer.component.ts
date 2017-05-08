@@ -21,6 +21,7 @@ export class MoneyTrasferComponent implements OnInit {
   private isSubmit;
 
   private userIdList;
+  private userNameList;
 
   private userdata:CookieService;
 
@@ -67,9 +68,20 @@ export class MoneyTrasferComponent implements OnInit {
           result = result.res;
 
           this.userIdList = [];
+          this.userNameList = [];
 
           for(var n in result){
             this.userIdList.push(result[n]._id);
+            var uname = '';
+            if(result[n].firstname != '')
+              uname += result[n].firstname+' ';
+            if(result[n].lastname != '')
+              uname += result[n].lastname;
+            if(uname != '' && result[n].company != '')
+              uname += ' - ';
+            if(result[n].company != '')
+              uname += result[n].company;
+            this.userNameList.push(uname);
           }
 
           this.getAllAccountNo();
@@ -119,6 +131,8 @@ export class MoneyTrasferComponent implements OnInit {
           for(var n in result){
             var item = result[n];
             if(this.userIdList.indexOf(item.user_id) > -1){
+              var uindex = this.userIdList.indexOf(item.user_id);
+              item.uname = this.userNameList[uindex];
               this.allaccounts.push(item);
             }
           }

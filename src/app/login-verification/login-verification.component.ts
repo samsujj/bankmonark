@@ -20,12 +20,14 @@ export class LoginVerificationComponent implements OnInit {
   private isSubmit;
 
   private userdata:CookieService;
+  private currenttime:CookieService;
 
   public userdetails:any;
 
-  constructor(fb: FormBuilder,private _http: Http,private router: Router,userdata:CookieService) {
+  constructor(fb: FormBuilder,private _http: Http,private router: Router,userdata:CookieService,currenttime:CookieService) {
     this.fb = fb;
     this.userdata = userdata;
+    this.currenttime = currenttime;
     this.userdetails=this.userdata.getObject('userdetails');
     let userdata2:any = userdata.getObject('userdetailstemp');
 
@@ -82,6 +84,7 @@ export class LoginVerificationComponent implements OnInit {
             var data2 = data.json();
             if(data2.status == 'success'){
               this.userdata.putObject('userdetails', this.userdet);
+              this.currenttime.putObject('currenttime', Math.floor(Date.now()));
               if(this.userdet.type == 1){
                 this.router.navigateByUrl('/admin-dashboard(header:header//left:left)');
               }else{

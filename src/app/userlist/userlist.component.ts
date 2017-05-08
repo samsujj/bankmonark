@@ -15,11 +15,12 @@ export class UserlistComponent implements OnInit {
   private userdata:CookieService;
 
   public superAdmin;
+  public accounts;
 
   constructor(private _http: Http,userdata:CookieService) { }
 
   ngOnInit() {
-    this.getAdminList();
+    this.getAllAccounts();
   }
 
   getAdminList(){
@@ -35,6 +36,23 @@ export class UserlistComponent implements OnInit {
           console.log("Oooops!");
         });
   }
+
+    getAllAccounts(){
+        var link = 'http://132.148.90.242:2007/getAllAccounts';
+        var data = {};
+
+        this._http.post(link, data)
+            .subscribe(res => {
+                var result = res.json();
+                this.accounts = result.res;
+
+                this.getAdminList();
+
+            }, error => {
+                console.log("Oooops!");
+            });
+
+    }
 
   delConfirm(id){
     this.id = id;
@@ -65,5 +83,15 @@ export class UserlistComponent implements OnInit {
           console.log("Oooops!");
         });
   }
+
+    getAccNo(item){
+        for(var n in this.accounts){
+            if(item._id == this.accounts[n].user_id){
+                return this.accounts[n].account_no;
+            }
+        }
+
+        return '';
+    }
 
 }

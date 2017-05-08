@@ -10,6 +10,7 @@ import {CookieService} from 'angular2-cookie/core';
 export class HeaderComponent implements OnInit {
   private userdata:CookieService;
   private userdetails;
+  private currenttime;
 
   constructor(userdata:CookieService,private router: Router) {
     this.userdata = userdata;
@@ -19,6 +20,9 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.userdata.putObject('currenttime', Math.floor(Date.now()));
+
+    this.currenttime=this.userdata.getObject('currenttime');
   }
 
   gotodashboard(){

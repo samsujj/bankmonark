@@ -125,11 +125,11 @@ export class TransactionListComponent implements OnInit {
     if(item.status == 1)
       return 'Complete';
     if(item.status == 2)
-      return 'Not Complete';
+      return 'Creation';
     if(item.status == 3)
       return 'Cancelled';
     if(item.status == 4)
-      return 'Approved';
+      return 'Verification';
 
     return '';
   }

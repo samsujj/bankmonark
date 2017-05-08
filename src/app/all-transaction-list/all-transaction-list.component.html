@@ -27,7 +27,7 @@
             <td>{{(item.status == 3)?item.cancel_amount:item.amount}}</td>
             <td>{{item.currency}}</td>
             <td>{{getStatus(item)}}</td>
-            <td><a href="javascript:void(0)" *ngIf="item.status == 2" (click)="approveTrans(item)">Approve</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" *ngIf="item.status == 2" (click)="cancelTrans(item)">Cancel</a></td>
+            <td><a href="javascript:void(0)" *ngIf="item.status == 2" (click)="verificationTrans(item)">Verification</a><a href="javascript:void(0)" *ngIf="item.status == 4" (click)="approveTrans(item)">Approve</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" *ngIf="item.status == 4" (click)="cancelTrans(item)">Cancel</a></td>
           </tr>
         </table>
       </div>

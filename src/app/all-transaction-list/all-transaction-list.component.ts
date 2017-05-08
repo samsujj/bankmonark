@@ -125,11 +125,11 @@ export class AllTransactionListComponent implements OnInit {
     if(item.status == 1)
       return 'Complete';
     if(item.status == 2)
-      return 'Not Complete';
+      return 'Creation';
     if(item.status == 3)
       return 'Cancelled';
     if(item.status == 4)
-      return 'Approved';
+      return 'Verification';
 
     return '';
   }
@@ -173,6 +173,19 @@ export class AllTransactionListComponent implements OnInit {
     this._http.post(link, data)
         .subscribe(res => {
           item.status = 3;
+        }, error => {
+          console.log("Oooops!");
+        });
+  }
+
+  verificationTrans(item){
+
+    var link = 'http://132.148.90.242:2007/verificationTransaction';
+    var data = {id : item._id};
+
+    this._http.post(link, data)
+        .subscribe(res => {
+          item.status = 4;
         }, error => {
           console.log("Oooops!");
         });

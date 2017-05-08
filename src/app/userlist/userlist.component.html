@@ -1,11 +1,11 @@
 <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 dashboard_right">
   <div class="dashboard_right_wrapper">
     <div class="dashboard1_div1 table-responsive">
-      <h4>User List</h4>
+      <h4>Customer List</h4>
       <div style="float: left; padding-bottom: 10px;">
         Search : <input type="text" #listFilter (keyup)="0">
       </div>
-      <div style="float: right; padding-bottom: 10px;"><a [routerLink]="['/add-user']" class="adduserlink">Add User</a></div>
+      <div style="float: right; padding-bottom: 10px;"><a [routerLink]="['/add-user']" class="adduserlink">Add Customer</a></div>
       <div class="clearfix"></div>
 
       <div class="tablediv">
@@ -13,8 +13,10 @@
           <tr>
             <th>#</th>
             <th>Name</th>
+            <th>Company</th>
             <th>Email</th>
-            <th>Phone</th>
+            <th>Account No</th>
+            <th>Note</th>
             <th>Added On</th>
             <th>Status</th>
             <th>Action</th>
@@ -22,8 +24,10 @@
           <tr *ngFor="let item of datalist | filteredlist:listFilter.value; let i = index">
             <td>{{i+1}}</td>
             <td>{{item.firstname}} {{item.lastname}}</td>
+            <td>{{item.company}}</td>
             <td>{{item.email}}</td>
-            <td>{{item.phone}}</td>
+            <td>{{getAccNo(item)}}</td>
+            <td>{{item.note}}</td>
             <td>{{ item.added_time*1000 | date:'MMM d, yyyy'}}</td>
             <td><a href="javascript:void(0);" (click)="statuscng(item)">{{(item.status==1)?'Active':'Inactive'}}</a></td>
             <td>

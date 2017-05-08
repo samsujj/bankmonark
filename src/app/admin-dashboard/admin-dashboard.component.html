@@ -19,16 +19,16 @@
       <div class="tablediv">
         <table width="100%" border="0" cellspacing="0" cellpadding="0"  >
           <tr>
-            <th>Account No</th>
-            <th>Type</th>
-            <th>Balance</th>
-            <th>Currency</th>
-            <th>Description</th>
+            <th style="text-align: center;">Account No</th>
+            <th style="text-align: center;">Type</th>
+            <th style="text-align: center;" width="15%">Balance</th>
+            <th style="text-align: center;">Currency</th>
+            <th style="text-align: center;">Description</th>
           </tr>
           <tr *ngFor="let item of accounts; let i = index">
             <td>{{item.account_no}}</td>
             <td>{{item.account_type}}</td>
-            <td>{{getAcBal(item.account_no)}}</td>
+            <td style="text-align: right; padding-right: 60px;">{{getAcBal(item.account_no)}}</td>
             <td>{{item.currency}}</td>
             <td>{{getAccountStatus(item)}}</td>
           </tr>

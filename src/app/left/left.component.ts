@@ -29,9 +29,12 @@ export class LeftComponent implements OnInit {
 
   ngOnInit() {
     this.isadmin = 0;
+
+
   }
 
   getUserDetails(){
+
     var link = 'http://132.148.90.242:2007/admin-details';
     var data = {_id : this.userid};
 
