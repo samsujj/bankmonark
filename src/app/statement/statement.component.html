@@ -41,13 +41,17 @@
       <div class="tablelogodiv">
         <img src="http://bankmonarch.westcoastvg.online/logo.jpg" style="width: 180px;">
       </div>
-      <div class="pdfpdiv1">{{address}}<br/>{{city}}<br/>{{state}}</div>
+      <div class="pdfpdiv1" *ngIf="userdet">{{getFullname(userdetails)}}<br>{{address}}<br/>{{city}}<br/>{{getStateName(userdet)}}<br/>{{getCountryName(userdet)}}</div>
       <h3 class="pdfph3">FINANCIAL STATEMENT</h3>
       <div class="pdfpdiv2">
         <table width="100%" border="0" cellspacing="0" cellpadding="4" style="font-size: 14px; line-height: 26px; ">
-          <tr>
+          <tr *ngIf="username">
             <td width="10%">Name:</td>
             <td width="90%">{{username}}</td>
+          </tr>
+          <tr *ngIf="companyname">
+            <td width="16%">Company Name:</td>
+            <td width="84%">{{companyname}}</td>
           </tr>
           <tr>
             <td width="10%">Number:</td>

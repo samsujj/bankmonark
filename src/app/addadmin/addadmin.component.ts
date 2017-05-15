@@ -20,6 +20,8 @@ export class AddadminComponent implements OnInit {
   private alphanpassvalidate;
 
   public superAdmin;
+  private countryList;
+  private stateList;
 
   constructor(fb: FormBuilder,private _http: Http,private router: Router,userdata:CookieService) {
     this.fb = fb;
@@ -51,11 +53,15 @@ export class AddadminComponent implements OnInit {
       confpassword: ["", Validators.required],
       address: ["", Validators.required],
       city: ["", Validators.required],
+      country: ["", Validators.required],
       state: ["", Validators.required],
       zip: ["", Validators.required],
       phone: [""],
       supradmin: [0],
     });
+
+    this.getCountry();
+
   }
 
   haserrorcls(cntrlname){
@@ -199,6 +205,41 @@ export class AddadminComponent implements OnInit {
     return 'hide';
   }
 
+  getCountry(){
+
+    var link = 'http://132.148.90.242:2007/country';
+    var data = {};
+
+    this._http.get(link, data)
+        .subscribe(res => {
+          var result = res.json();
+          this.countryList = result.res;
+        }, error => {
+          console.log("Oooops!");
+        });
+
+  }
+
+  getState(stid){
+    this.stateList = [];
+    var link = 'http://132.148.90.242:2007/statebyid/'+stid;
+    var data = {};
+
+    this._http.get(link, data)
+        .subscribe(res => {
+          var result = res.json();
+          this.stateList = result.res;
+        }, error => {
+          console.log("Oooops!");
+        });
+
+  }
+
+  cngCountry(ev){
+    (<FormControl>this.dataForm.controls['state']).setValue('');
+    this.getState(ev);
+  }
+
   dosubmit(formval){
 
     let supradmin = 0;
@@ -249,7 +290,7 @@ export class AddadminComponent implements OnInit {
     if(this.dataForm.valid && this.isemailvalidate && this.passmatchvalidate && this.alphanpassvalidate){
 
       var link = 'http://132.148.90.242:2007/add-admin';
-      var data = {firstname: formval.firstname,lastname: formval.lastname,email: formval.email,password: formval.password,phone: formval.phone,address: formval.address,city: formval.city,state: formval.state,zip: formval.zip,supradmin:supradmin};
+      var data = {firstname: formval.firstname,lastname: formval.lastname,email: formval.email,password: formval.password,phone: formval.phone,address: formval.address,city: formval.city,state: formval.state,zip: formval.zip,supradmin:supradmin,country:formval.country};
 
 
       this._http.post(link, data)

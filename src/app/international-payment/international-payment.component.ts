@@ -5,11 +5,11 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
 
 @Component({
-  selector: 'app-money-trasfer',
-  templateUrl: './money-trasfer.component.html',
-  styleUrls: ['./money-trasfer.component.css']
+  selector: 'app-international-payment',
+  templateUrl: './international-payment.component.html',
+  styleUrls: ['./international-payment.component.css']
 })
-export class MoneyTrasferComponent implements OnInit {
+export class InternationalPaymentComponent implements OnInit {
   public dataForm:FormGroup;
   private fb;
   private userid;
@@ -54,6 +54,7 @@ export class MoneyTrasferComponent implements OnInit {
       description: ["", Validators.required],
       beneficiary: ["", Validators.required],
       bank_name: ["", Validators.required],
+      swift_code: ["", Validators.required],
       branch_name: [""],
       currency: ["USD"],
     });
@@ -201,8 +202,8 @@ export class MoneyTrasferComponent implements OnInit {
     this.isSubmit = true;
 
     if(this.dataForm.valid){
-      var link = 'http://132.148.90.242:2007/fundtransfer';
-      var data = {source_account: formval.source_account,dest_account: formval.dest_account,amount: formval.amount,description: formval.description,currency: formval.currency,beneficiary:formval.beneficiary,bank_name: formval.bank_name,branch_name:formval.branch_name};
+      var link = 'http://132.148.90.242:2007/fundtransfer2';
+      var data = {source_account: formval.source_account,dest_account: formval.dest_account,amount: formval.amount,description: formval.description,currency: formval.currency,beneficiary:formval.beneficiary,bank_name: formval.bank_name,branch_name:formval.branch_name,swift_code:formval.swift_code};
 
 
       this._http.post(link, data)

@@ -86,7 +86,13 @@ export class LoginVerificationComponent implements OnInit {
               this.userdata.putObject('userdetails', this.userdet);
               this.currenttime.putObject('currenttime', Math.floor(Date.now()));
               if(this.userdet.type == 1){
-                this.router.navigateByUrl('/admin-dashboard(header:header//left:left)');
+                if(typeof(this.userdata.getObject('loginredirect')) != 'undefined'){
+                  var loginredirect = this.userdata.getObject('loginredirect');
+                  this.userdata.remove('loginredirect');
+                  this.router.navigateByUrl('/'+loginredirect+'(header:header//left:left)');
+                }else {
+                  this.router.navigateByUrl('/admin-dashboard(header:header//left:left)');
+                }
               }else{
                 this.router.navigateByUrl('/dashboard(header:header//left:left)');
               }

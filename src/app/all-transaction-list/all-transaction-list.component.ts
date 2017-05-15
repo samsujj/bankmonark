@@ -4,6 +4,7 @@ import {Http} from "@angular/http";
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
 import {DateModel, DatePickerOptions} from "ng2-datepicker/lib-dist/ng2-datepicker.component";
+import {Modal} from "angular2-modal";
 
 @Component({
   selector: 'app-all-transaction-list',
@@ -38,7 +39,10 @@ export class AllTransactionListComponent implements OnInit {
   public sttime:number;
   public endtime:number;
 
-  constructor(fb: FormBuilder,private _http: Http,private router: Router,userdata:CookieService) {
+  public modal;
+
+  constructor(fb: FormBuilder,private _http: Http,private router: Router,userdata:CookieService,modal: Modal) {
+    this.modal = modal;
     this.options = new DatePickerOptions();
     this.fb = fb;
     this.accounts = [];
@@ -112,7 +116,7 @@ export class AllTransactionListComponent implements OnInit {
     var description = '';
     if(item.type == 1 && item.transfer_from != ''){
       description += 'Transfer money from account: '+item.transfer_from;
-    }else if(item.type == 2 && item.transfer_to != ''){
+    }else if((item.type == 2 || item.type == 3) && item.transfer_to != ''){
       description += 'Transfer money to account: '+item.transfer_to;
     }else{
       description = 'Added by Admin';
@@ -155,11 +159,46 @@ export class AllTransactionListComponent implements OnInit {
 
   approveTrans(item){
     var link = 'http://132.148.90.242:2007/approveTransaction';
+
+    if(item.type == 3){
+      var link = 'http://132.148.90.242:2007/approveTransaction2';
+    }
+
     var data = {item : item};
 
     this._http.post(link, data)
         .subscribe(res => {
-          item.status = 1;
+          var result = res.json();
+
+          if(result.status == 'error'){
+            this.modal.alert()
+                .showClose(true)
+                .title('Transaction Not Approved')
+                .body(`<h3>Error Occured. Try Again!!!</h3>`)
+                .open()
+                .then(function (resultPromise) {
+                  setTimeout(function(){
+                    resultPromise.dismiss();
+                  },5000);
+
+                });
+          }else{
+            item.status = 1;
+            this.modal.alert()
+                .showClose(true)
+                .title('Transaction Approved')
+                .body('<h3>'+result.msg+'</h3>')
+                .open()
+                .then(function (resultPromise) {
+                  setTimeout(function(){
+                    resultPromise.dismiss();
+                  },10000);
+
+                });
+          }
+
+
+
         }, error => {
           console.log("Oooops!");
         });

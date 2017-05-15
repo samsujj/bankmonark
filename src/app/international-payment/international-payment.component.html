@@ -1,7 +1,7 @@
 <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 dashboard_right">
   <div class="dashboard_right_wrapper">
     <div class="dashboard1_div1 ">
-      <h4> Transfer Money</h4>
+      <h4> International Payment</h4>
       <div class="dashboard1form">
         <form role="form" novalidate [formGroup]="dataForm" (ngSubmit)="dosubmit(dataForm.value)">
 
@@ -13,6 +13,15 @@
             </select>
             <div class="help-block" ngClass="{{showerrorcls('source_account')}}">Source account is required</div>
           </div>
+          <div class="form-group" ngClass="{{haserrorcls('amount')}}">
+            <label>Instructed amount</label>
+            <input type="number" placeholder="Instructed amount" [formControl]="dataForm.controls['amount']" (keypress)="putnumber($event)">
+            <div class="help-block" ngClass="{{showerrorcls('amount')}}">Instructed amount is required</div>
+          </div>
+          <div class="form-group" ngClass="{{haserrorcls('currency')}}">
+            <label>Currency</label>
+            <input type="text" [formControl]="dataForm.controls['currency']" readonly>
+          </div>
           <div class="form-group" ngClass="{{haserrorcls('dest_account')}}">
             <label>Account number</label>
             <input type="text" placeholder="Account number" [formControl]="dataForm.controls['dest_account']">
@@ -23,6 +32,11 @@
             <input type="text" placeholder="Beneficiary" [formControl]="dataForm.controls['beneficiary']">
             <div class="help-block" ngClass="{{showerrorcls('beneficiary')}}">Beneficiary is required</div>
           </div>
+          <div class="form-group" ngClass="{{haserrorcls('swift_code')}}">
+            <label>Swift Code</label>
+            <input type="text" placeholder="Swift Code" [formControl]="dataForm.controls['swift_code']">
+            <div class="help-block" ngClass="{{showerrorcls('swift_code')}}">Swift Code is required</div>
+          </div>
           <div class="form-group" ngClass="{{haserrorcls('bank_name')}}">
             <label>Bank Name</label>
             <input type="text" placeholder="Bank Name" [formControl]="dataForm.controls['bank_name']">
@@ -30,25 +44,11 @@
           </div>
           <div class="form-group" ngClass="{{haserrorcls('branch_name')}}">
             <label>Branch Name</label>
-            <input type="text" placeholder="Branch Name" [formControl]="dataForm.controls['branch_name']" >
+            <input type="text" placeholder="Branch Name" [formControl]="dataForm.controls['branch_name']">
             <div class="help-block" ngClass="{{showerrorcls('branch_name')}}">Branch Name is required</div>
           </div>
-          <div class="form-group" ngClass="{{haserrorcls('amount')}}">
-            <label>Instructed amount</label>
-            <input type="number" placeholder="Instructed amount" [formControl]="dataForm.controls['amount']" (keypress)="putnumber($event)">
-            <div class="help-block" ngClass="{{showerrorcls('amount')}}">Instructed amount is required</div>
-          </div>
-          <div class="form-group" ngClass="{{haserrorcls('currency')}}">
-            <label>Currency</label>
-            <!--<select [formControl]="dataForm.controls['currency']">
-              <option value="USD">USD</option>
-              <option value="GBP">GBP</option>
-              <option value="EUR">EUR</option>
-            </select>-->
-            <input type="text" [formControl]="dataForm.controls['currency']" readonly>
-          </div>
           <div class="form-group" ngClass="{{haserrorcls('description')}}">
-            <label >Description</label>
+            <label >Reference</label>
             <textarea placeholder="Description" [formControl]="dataForm.controls['description']"> </textarea>
           </div>
 

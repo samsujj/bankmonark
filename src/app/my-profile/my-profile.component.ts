@@ -38,7 +38,7 @@ export class MyProfileComponent implements OnInit {
   }
 
   getUserDetails(){
-    var link = 'http://132.148.90.242:2007/admin-details';
+    var link = 'http://132.148.90.242:2007/userdetailsfull';
     var data = {_id : this.userid};
 
 
@@ -47,7 +47,6 @@ export class MyProfileComponent implements OnInit {
           var result = res.json();
           if(result.status == 'success' && typeof(result.item) != 'undefined'){
             let userdet = result.item;
-
 
             this.userdetails = userdet;
 
@@ -58,5 +57,29 @@ export class MyProfileComponent implements OnInit {
           console.log("Oooops!");
         });
   }
+
+  getStateName(item){
+    var statedet = item.statedet;
+
+    if(statedet.length){
+      if(typeof(statedet[0]) != 'undefined'){
+        return statedet[0]['s_st_name'];
+      }
+    }
+    return '';
+  }
+
+  getCountryName(item){
+    var countrydet = item.countrydet;
+
+    if(countrydet.length){
+      if(typeof(countrydet[0]) != 'undefined'){
+        return countrydet[0]['s_name'];
+      }
+    }
+    return '';
+  }
+
+
 
 }

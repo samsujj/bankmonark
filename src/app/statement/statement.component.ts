@@ -43,10 +43,13 @@ export class StatementComponent implements OnInit {
 
   public showStatement;
   public username;
+  public companyname;
 
   public address;
   public city;
   public state;
+  public country;
+  public userdet;
 
   public stBalance:number;
   public endBalance:number;
@@ -90,7 +93,7 @@ export class StatementComponent implements OnInit {
   }
 
   getUserDetails(){
-    var link = 'http://132.148.90.242:2007/admin-details';
+    var link = 'http://132.148.90.242:2007/userdetailsfull';
     var data = {_id : this.userid};
 
 
@@ -101,10 +104,22 @@ export class StatementComponent implements OnInit {
             let userdet = result.item;
 
 
-            this.username = userdet.firstname+" "+userdet.lastname;
+            this.username = '';
+
+            if(userdet.firstname != '')
+              this.username += userdet.firstname;
+            if(this.username != '')
+              this.username += ' ';
+            if(userdet.lastname != '')
+              this.username += userdet.lastname;
+
+            this.companyname = userdet.company;
             this.address = userdet.address;
             this.city = userdet.city;
             this.state = userdet.state;
+            this.country = userdet.country;
+
+            this.userdet = userdet;
 
           }else{
             this.router.navigate(['/user-list']);
@@ -272,6 +287,46 @@ export class StatementComponent implements OnInit {
 
   downloadpdf(){
     window.open('http://bankmonarch.westcoastvg.online/pdf.php?user_id='+this.userid+'&account_no='+this.selacc+'&sttime='+this.sttime+'&endtime='+this.endtime);
+  }
+
+  getStateName(item){
+    var statedet = item.statedet;
+
+    if(statedet.length){
+      if(typeof(statedet[0]) != 'undefined'){
+        return statedet[0]['s_st_name'];
+      }
+    }
+    return '';
+  }
+
+  getCountryName(item){
+    var countrydet = item.countrydet;
+
+    if(countrydet.length){
+      if(typeof(countrydet[0]) != 'undefined'){
+        return countrydet[0]['s_name'];
+      }
+    }
+    return '';
+  }
+
+  getFullname(item){
+    var fnamearr = [];
+    var fullname = '';
+    var comapanyname = '';
+    if(item.firstname != '')
+      fullname += item.firstname;
+    if(fullname != '')
+      fullname += ' ';
+    if(item.lastname != '')
+      fullname += item.lastname;
+    if(fullname != '')
+      fnamearr.push(fullname);
+    if(item.company != '' && typeof(item.company) != 'undefined')
+      fnamearr.push(item.company);
+
+    return fnamearr.join(' - ');
   }
 
 }

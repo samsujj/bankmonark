@@ -1,0 +1,33 @@
+<div class="container-fluid login_bg">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td valign="middle"><div class="login_wrapper"> <img src="assets/images/logo.jpg" style="display:block; margin:0 auto; max-width:100%;">
+        <h2> Login to private area </h2>
+        <h3>Enter into your account</h3>
+        <div class="login_formbox">
+          <form role="form" novalidate [formGroup]="dataForm" >
+            <div class="form-group">
+              <label>Login:</label>
+              <input type="email" [formControl]="dataForm.controls['email']">
+            </div>
+            <div class="form-group">
+              <label>Password:</label>
+              <input type="password" [formControl]="dataForm.controls['password']">
+            </div>
+
+
+
+
+            <input type="submit" value="login" class="loginbtn">
+
+            <a [routerLink]="['/forgot-password']" class="fpassword"> forgot password </a>
+            <div class="clearfix"></div>
+          </form>
+
+
+
+        </div>
+      </div></td>
+    </tr>
+  </table>
+</div>

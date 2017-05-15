@@ -45,9 +45,20 @@
             <input type="text" class="form-control" placeholder="City" [formControl]="dataForm.controls['city']">
             <div class="help-block" ngClass="{{showerrorcls('city')}}">City is required</div>
           </div>
+          <div class="form-group" ngClass="{{haserrorcls('country')}}">
+            <label class="col-sm-2 control-label">Country</label>
+            <select class="form-control" [formControl]="dataForm.controls['country']" (change)="cngCountry($event.target.value)">
+              <option value="">Select Country</option>
+              <option *ngFor="let item of countryList" value="{{item.id}}">{{item.s_name}}</option>
+            </select>
+            <div class="help-block" ngClass="{{showerrorcls('country')}}">Country is required</div>
+          </div>
           <div class="form-group" ngClass="{{haserrorcls('state')}}">
             <label class="col-sm-2 control-label">State</label>
-            <input type="text" class="form-control" placeholder="State" [formControl]="dataForm.controls['state']">
+            <select class="form-control" [formControl]="dataForm.controls['state']">
+              <option value="">Select State</option>
+              <option *ngFor="let item of stateList" value="{{item.id}}">{{item.s_st_name}}</option>
+            </select>
             <div class="help-block" ngClass="{{showerrorcls('state')}}">State is required</div>
           </div>
           <div class="form-group" ngClass="{{haserrorcls('zip')}}">

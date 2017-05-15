@@ -59,4 +59,23 @@ export class LeftComponent implements OnInit {
         });
   }
 
+  getFullname(item){
+    var fnamearr = [];
+    var fullname = '';
+    var comapanyname = '';
+    if(item.firstname != '')
+      fullname += item.firstname;
+    if(fullname != '')
+      fullname += ' ';
+    if(item.lastname != '')
+      fullname += item.lastname;
+    if(fullname != '')
+      fnamearr.push(fullname);
+    if(item.company != '' && typeof(item.company) != 'undefined')
+      fnamearr.push(item.company);
+
+    return fnamearr.join(' - ');
+
+  }
+
 }

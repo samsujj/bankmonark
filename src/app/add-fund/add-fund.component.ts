@@ -125,6 +125,21 @@ export class AddFundComponent implements OnInit {
     return 'hide';
   }
 
+    putnumber(event: any) {
+
+        var key = event.which || event.keyCode || event.charCode;
+
+        const pattern = /[0-9\.\ ]/;
+        let inputChar = String.fromCharCode(event.charCode);
+
+
+
+        if (!pattern.test(inputChar) && key != 8) {
+            // invalid character, prevent input
+            event.preventDefault();
+        }
+    }
+
   dosubmit(formval) {
     this.isSubmit = true;
 

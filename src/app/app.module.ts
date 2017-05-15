@@ -6,6 +6,8 @@ import { HttpModule } from '@angular/http';
 import {routing, appRoutingProviders} from './routes';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 import {DatePickerModule} from "ng2-datepicker/lib-dist/ng2-datepicker.module";
+import {ModalModule} from 'angular2-modal';
+import {BootstrapModalModule} from 'angular2-modal/plugins/bootstrap';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -35,6 +37,9 @@ import { CurrencyComponent } from './currency/currency.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { AddFundComponent } from './add-fund/add-fund.component';
+import { InternationalPaymentComponent } from './international-payment/international-payment.component';
+import { TransactionDetailsComponent } from './transaction-details/transaction-details.component';
+import { AutologinComponent } from './autologin/autologin.component';
 
 @NgModule({
   declarations: [
@@ -65,16 +70,21 @@ import { AddFundComponent } from './add-fund/add-fund.component';
     CurrencyComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
-    AddFundComponent
+    AddFundComponent,
+    InternationalPaymentComponent,
+    TransactionDetailsComponent,
+    AutologinComponent
   ],
   imports: [
     BrowserModule,
+    ModalModule.forRoot(),
+    BootstrapModalModule,
     FormsModule,
     ReactiveFormsModule,
     DatePickerModule,
     HttpModule,routing
   ],
   providers: [appRoutingProviders,CookieService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

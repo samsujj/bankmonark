@@ -8,8 +8,8 @@
             <th>Address</th>
           </tr>
           <tr>
-            <td>{{userdetails.firstname}} {{userdetails.lastname}}</td>
-            <td>{{userdetails.address}}, {{userdetails.city}}, {{userdetails.state}}, {{userdetails.zip}}</td>
+            <td>{{getFullname(userdetails)}}</td>
+            <td>{{userdetails.address}}, {{userdetails.city}}, {{getStateName(userdetails)}}, {{getCountryName(userdetails)}}, {{userdetails.zip}}</td>
           </tr>
         </table>
       </div>
@@ -42,6 +42,7 @@
           <tr>
             <th>Account No</th>
             <th>Description</th>
+            <th>Payment Type</th>
             <th>Type</th>
             <th>Date</th>
             <th>Amount</th>
@@ -50,9 +51,10 @@
           </tr>
           <tr *ngFor="let item of transaction; let i = index">
             <td>{{item.account_no}}</td>
-            <td>{{getDescription2(item)}}<br>Reference: {{item.description}}</td>
+            <td><div>{{getDescription2(item)}}</div><div>Reference: {{item.description}}</div><div>{{((item.type==2 || item.type==3) && item.beneficiary)?'Beneficiary: '+item.beneficiary:''}}</div><div>{{((item.type==2 || item.type==3) && item.transfer_to)?'Account: '+item.transfer_to:''}}</div><div>{{((item.type==2 || item.type==3) && item.bank_name)?'Bank Name: '+item.bank_name:''}}</div><div>{{((item.type==2 || item.type==3) && item.swift_code)?'Swift Code: '+item.swift_code:''}}</div><div>{{((item.type==2 || item.type==3) && item.branch_name)?'Branch Name: '+item.branch_name:''}}</div></td>
+            <td>{{((item.type == 3)?'Internation Payment':((item.type == 2)?'Direct Debit':''))}}</td>
             <td>{{(item.type == 1)?'Credit':'Debit'}}</td>
-            <td>{{ (item.time*1000) | date : "dd MMM yyyy"}}</td>
+            <td>{{ (item.time*1000) | date : "dd MMM yyyy hh:mma"}}</td>
             <td>{{(item.status == 3)?item.cancel_amount:item.amount}}</td>
             <td>{{item.currency}}</td>
             <td>{{getStatus(item)}}</td>

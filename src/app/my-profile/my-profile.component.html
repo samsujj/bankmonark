@@ -4,11 +4,13 @@
       <h4>My Profile</h4>
       <div class="tablediv" style="margin-bottom: 10px;">
         <table width="100%" border="0" cellspacing="0" cellpadding="0">
-          <tr><td style="font-size: 14px;"><label class="mplabel">Name :</label> {{userdetails.firstname}} {{userdetails.lastname}}</td></tr>
+          <tr *ngIf="userdetails.firstname && userdetails.lastname"><td style="font-size: 14px;"><label class="mplabel">Name :</label> {{userdetails.firstname}} {{userdetails.lastname}}</td></tr>
+          <tr *ngIf="userdetails.company"><td style="font-size: 14px;"><label class="mplabel">Company Name :</label> {{userdetails.company}}</td></tr>
           <tr><td style="font-size: 14px;"><label class="mplabel">Email :</label> {{userdetails.email}}</td></tr>
           <tr><td style="font-size: 14px;"><label class="mplabel">Address :</label> {{userdetails.address}}</td></tr>
           <tr><td style="font-size: 14px;"><label class="mplabel">City :</label> {{userdetails.city}}</td></tr>
-          <tr><td style="font-size: 14px;"><label class="mplabel">State :</label> {{userdetails.state}}</td></tr>
+          <tr><td style="font-size: 14px;"><label class="mplabel">State :</label> {{getStateName(userdetails)}}</td></tr>
+          <tr><td style="font-size: 14px;"><label class="mplabel">Country :</label> {{getCountryName(userdetails)}}</td></tr>
           <tr><td style="font-size: 14px;"><label class="mplabel">Zip :</label> {{userdetails.zip}}</td></tr>
         </table>
       </div>

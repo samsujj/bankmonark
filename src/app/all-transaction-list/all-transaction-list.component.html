@@ -1,3 +1,4 @@
+<span defaultOverlayTarget></span>
 <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 dashboard_right">
   <div class="dashboard_right_wrapper">
     <div class="dashboard1_div1 table-responsive">
@@ -12,6 +13,7 @@
           <tr>
             <th>Account No</th>
             <th>Description</th>
+            <th>Payment Type</th>
             <th>Type</th>
             <th>Date</th>
             <th>Amount</th>
@@ -21,13 +23,14 @@
           </tr>
           <tr *ngFor="let item of transaction; let i = index">
             <td>{{item.account_no}}</td>
-            <td>{{getDescription2(item)}}<br>Reference: {{item.description}}</td>
+            <td><div>{{getDescription2(item)}}</div><div>Reference: {{item.description}}</div><div>{{((item.type==2 || item.type==3) && item.beneficiary)?'Beneficiary: '+item.beneficiary:''}}</div><div>{{((item.type==2 || item.type==3) && item.transfer_to)?'Account: '+item.transfer_to:''}}</div><div>{{((item.type==2 || item.type==3) && item.bank_name)?'Bank Name: '+item.bank_name:''}}</div><div>{{((item.type==2 || item.type==3) && item.swift_code)?'Swift Code: '+item.swift_code:''}}</div><div>{{((item.type==2 || item.type==3) && item.branch_name)?'Branch Name: '+item.branch_name:''}}</div></td>
+            <td>{{((item.type == 3)?'International Payment':((item.type == 2)?'Direct Debit':''))}}</td>
             <td>{{(item.type == 1)?'Credit':'Debit'}}</td>
-            <td>{{ (item.time*1000) | date : "dd MMM yyyy"}}</td>
+            <td>{{ (item.time*1000) | date : "dd MMM yyyy hh:mma"}}</td>
             <td>{{(item.status == 3)?item.cancel_amount:item.amount}}</td>
             <td>{{item.currency}}</td>
             <td>{{getStatus(item)}}</td>
-            <td><a href="javascript:void(0)" *ngIf="item.status == 2" (click)="verificationTrans(item)">Verification</a><a href="javascript:void(0)" *ngIf="item.status == 4" (click)="approveTrans(item)">Approve</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" *ngIf="item.status == 4" (click)="cancelTrans(item)">Cancel</a></td>
+            <td><a href="javascript:void(0)" *ngIf="item.status == 2" (click)="verificationTrans(item)">Verification</a><a href="javascript:void(0)" *ngIf="item.status == 4" (click)="approveTrans(item)">Approve</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" *ngIf="item.status == 4 || item.status == 2" (click)="cancelTrans(item)">Cancel</a></td>
           </tr>
         </table>
       </div>

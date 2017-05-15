@@ -381,3 +381,25 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a23e4c', end
 
 
 .mplabel{ font-family:'OpenSans-Semibold'; text-transform:uppercase; font-size:14px; color:#83212e;  text-align:left; }
+
+
+.modal-content{     background: #f8eed3;
+    border: solid 5px #b6b1a4;}
+
+.modal-header{ border: none; text-align: center;}
+.modal-footer{ border: none; text-align: center;}
+
+.modal-footer .btn{background: rgba(162,62,76,1);
+    background: -moz-linear-gradient(top, rgba(162,62,76,1) 0%, rgba(130,32,45,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(162,62,76,1)), color-stop(100%, rgba(130,32,45,1)));
+    background: -webkit-linear-gradient(top, rgba(162,62,76,1) 0%, rgba(130,32,45,1) 100%);
+    background: -o-linear-gradient(top, rgba(162,62,76,1) 0%, rgba(130,32,45,1) 100%);
+    background: -ms-linear-gradient(top, rgba(162,62,76,1) 0%, rgba(130,32,45,1) 100%);
+    background: linear-gradient(to bottom, rgba(162,62,76,1) 0%, rgba(130,32,45,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a23e4c', endColorstr='#82202d', GradientType=0 ); font-family:'OpenSans-Semibold'; font-size:14px; color:#fff!important; text-transform:uppercase; border:none; padding:8px 18px; border-radius:2px; text-align: center;}
+
+.modal-body h4{ text-align: center; line-height: 30px; font-size: 20px; font-family:'OpenSans-Regular'; color: #000;}
+.modal-body h3{ font-size: 19px; font-family:'OpenSans-Regular';}
+
+.modal-content .close{ width: 30px; height: 30px; background: #b6b1a4; border-radius: 100px; color: #83212e; text-align: center; line-height: 30px; position: absolute; right: -12px; text-decoration: none!important; outline: none!important;
+    top:-12px;}

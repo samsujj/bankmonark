@@ -1,5 +1,5 @@
 <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 dashboard_left">
-  <h2>Welcome <span>{{username}}</span> </h2>
+  <h2 *ngIf="userdetails">Welcome <span>{{getFullname(userdetails)}}</span> </h2>
   <ul>
     <li *ngIf="isadmin == 1"><a [routerLink]="['/admin-dashboard']">Main</a></li>
     <li *ngIf="isadmin == 0"><a [routerLink]="['/dashboard']">Main</a></li>
@@ -11,6 +11,7 @@
     <li *ngIf="isadmin == 1"><a [routerLink]="['/all-transaction-list']">Transaction List</a></li>
     <li *ngIf="isadmin == 0"><a [routerLink]="['/statement']">Statement</a></li>
     <li *ngIf="isadmin == 0"><a [routerLink]="['/money-transfer']">Transfer Money</a></li>
+    <li *ngIf="isadmin == 0"><a [routerLink]="['/international-payment']">International Payment</a></li>
     <li *ngIf="isadmin == 1"><a [routerLink]="['/ip-track']">Ip Track</a></li>
     <li><a [routerLink]="['/my-profile']">My Profile</a></li>
     <li><a [routerLink]="['/change-password']">Change Password</a></li>

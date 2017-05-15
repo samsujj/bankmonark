@@ -18,6 +18,9 @@ export class EdituserComponent implements OnInit {
 
   public namevalidate;
 
+  private countryList;
+  private stateList;
+
   constructor(fb: FormBuilder,private _http: Http,private router: Router, private route: ActivatedRoute) {
     this.fb = fb;
   }
@@ -25,6 +28,8 @@ export class EdituserComponent implements OnInit {
   ngOnInit() {
 
     this.namevalidate = false;
+
+    this.getCountry();
 
     this.route.params.subscribe(params => {
       this.id = params['id'];
@@ -43,6 +48,7 @@ export class EdituserComponent implements OnInit {
       note: [""],
       address: ["", Validators.required],
       city: ["", Validators.required],
+      country: ["", Validators.required],
       state: ["", Validators.required],
       zip: ["", Validators.required],
       phone: [""],
@@ -114,16 +120,55 @@ export class EdituserComponent implements OnInit {
             (<FormControl>this.dataForm.controls['phone']).setValue(userdet.phone);
             (<FormControl>this.dataForm.controls['address']).setValue(userdet.address);
             (<FormControl>this.dataForm.controls['city']).setValue(userdet.city);
+            (<FormControl>this.dataForm.controls['country']).setValue(userdet.country);
             (<FormControl>this.dataForm.controls['state']).setValue(userdet.state);
             (<FormControl>this.dataForm.controls['zip']).setValue(userdet.zip);
             (<FormControl>this.dataForm.controls['company']).setValue(userdet.company);
             (<FormControl>this.dataForm.controls['note']).setValue(userdet.note);
+
+            this.getState(userdet.country);
+
           }else{
             this.router.navigate(['/user-list']);
           }
         }, error => {
           console.log("Oooops!");
         });
+  }
+
+  getCountry(){
+
+    var link = 'http://132.148.90.242:2007/country';
+    var data = {};
+
+    this._http.get(link, data)
+        .subscribe(res => {
+          var result = res.json();
+          this.countryList = result.res;
+        }, error => {
+          console.log("Oooops!");
+        });
+
+  }
+
+  getState(stid){
+    this.stateList = [];
+    var link = 'http://132.148.90.242:2007/statebyid/'+stid;
+    var data = {};
+
+    this._http.get(link, data)
+        .subscribe(res => {
+          var result = res.json();
+          this.stateList = result.res;
+        }, error => {
+          console.log("Oooops!");
+        });
+
+  }
+
+  cngCountry(ev){
+    (<FormControl>this.dataForm.controls['state']).setValue('');
+    this.getState(ev);
   }
 
   dosubmit(formval){
@@ -136,7 +181,7 @@ export class EdituserComponent implements OnInit {
     this.isSubmit = true;
     if(this.dataForm.valid && this.namevalidate){
       var link = 'http://132.148.90.242:2007/edit-user';
-      var data = {firstname: formval.firstname,lastname: formval.lastname,phone: formval.phone,address: formval.address,city: formval.city,state: formval.state,zip: formval.zip,id: this.id,company: formval.company,note:formval.note};
+      var data = {firstname: formval.firstname,lastname: formval.lastname,phone: formval.phone,address: formval.address,city: formval.city,state: formval.state,zip: formval.zip,id: this.id,company: formval.company,note:formval.note,country:formval.country};
 
 
       this._http.post(link, data)

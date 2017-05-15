@@ -27,12 +27,15 @@ import {CurrencyComponent} from "./currency/currency.component";
 import {ForgotPasswordComponent} from "./forgot-password/forgot-password.component";
 import {ResetPasswordComponent} from "./reset-password/reset-password.component";
 import {AddFundComponent} from "./add-fund/add-fund.component";
+import {InternationalPaymentComponent} from "./international-payment/international-payment.component";
+import {AutologinComponent} from "./autologin/autologin.component";
 
 const appRoutes: Routes = [
     // { path: '/**',component: AppComponent},
     //{ path: '/*',component: AppComponent},
     { path: '', component: LoginComponent},
     { path: 'login', component: LoginComponent},
+    { path: 'autologin/:str', component: AutologinComponent},
     { path: 'login-verification', component: LoginVerificationComponent},
     { path: 'logout', component: LogoutComponent},
     { path: 'email-verify/:id/:time', component: EmailVerifyComponent},
@@ -53,6 +56,7 @@ const appRoutes: Routes = [
     { path: 'update-profile', component: UpdateProfileComponent},
     { path: 'change-password', component: ChangePasswordComponent},
     { path: 'currency', component: CurrencyComponent},
+    { path: 'international-payment', component: InternationalPaymentComponent},
     { path: 'forgot-password', component: ForgotPasswordComponent},
     { path: 'reset-password/:str1/:str2/:str3', component: ResetPasswordComponent},
     { path: 'edit-user/:id', component: EdituserComponent},

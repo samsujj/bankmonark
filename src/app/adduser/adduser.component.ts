@@ -18,6 +18,8 @@ export class AdduserComponent implements OnInit {
   private alphanpassvalidate;
   private namevalidate;
   private existf;
+  private countryList;
+  private stateList;
 
   constructor(fb: FormBuilder,private _http: Http,private router: Router) {
     this.fb = fb;
@@ -30,6 +32,7 @@ export class AdduserComponent implements OnInit {
     this.passmatchvalidate = false;
     this.alphanpassvalidate = false;
     this.namevalidate = false;
+    this.stateList = [];
 
     this.dataForm = this.fb.group({
       firstname: [""],
@@ -43,6 +46,7 @@ export class AdduserComponent implements OnInit {
       account_no: ["", Validators.required],
       address: ["", Validators.required],
       city: ["", Validators.required],
+      country: ["", Validators.required],
       state: ["", Validators.required],
       zip: ["", Validators.required],
       phone: [""],
@@ -50,6 +54,8 @@ export class AdduserComponent implements OnInit {
       currency: ["USD"],
       initial_fund: ["0"],
     });
+
+    this.getCountry();
   }
 
   haserrorcls(cntrlname){
@@ -278,6 +284,56 @@ export class AdduserComponent implements OnInit {
     return 'hide';
   }
 
+  getCountry(){
+
+    var link = 'http://132.148.90.242:2007/country';
+    var data = {};
+
+    this._http.get(link, data)
+        .subscribe(res => {
+          var result = res.json();
+          this.countryList = result.res;
+        }, error => {
+          console.log("Oooops!");
+        });
+
+  }
+
+  getState(stid){
+    this.stateList = [];
+    var link = 'http://132.148.90.242:2007/statebyid/'+stid;
+    var data = {};
+
+    this._http.get(link, data)
+        .subscribe(res => {
+          var result = res.json();
+          this.stateList = result.res;
+        }, error => {
+          console.log("Oooops!");
+        });
+
+  }
+
+  cngCountry(ev){
+    (<FormControl>this.dataForm.controls['state']).setValue('');
+    this.getState(ev);
+  }
+
+  putnumber(event: any) {
+
+    var key = event.which || event.keyCode || event.charCode;
+
+    const pattern = /[0-9\.\ ]/;
+    let inputChar = String.fromCharCode(event.charCode);
+
+
+
+    if (!pattern.test(inputChar) && key != 8) {
+      // invalid character, prevent input
+      event.preventDefault();
+    }
+  }
+
   dosubmit(formval){
 
     this.existf = '';
@@ -332,7 +388,7 @@ export class AdduserComponent implements OnInit {
     if(this.dataForm.valid && this.passmatchvalidate && this.alphanpassvalidate && this.namevalidate){
 
       var link = 'http://132.148.90.242:2007/add-user';
-      var data = {firstname: formval.firstname,lastname: formval.lastname,email: formval.email,password: formval.password,phone: formval.phone,account_type: formval.account_type,currency: formval.currency,initial_fund: formval.initial_fund,account_no: formval.account_no,address: formval.address,city: formval.city,state: formval.state,zip: formval.zip,company: formval.company,note:formval.note};
+      var data = {firstname: formval.firstname,lastname: formval.lastname,email: formval.email,password: formval.password,phone: formval.phone,account_type: formval.account_type,currency: formval.currency,initial_fund: formval.initial_fund,account_no: formval.account_no,address: formval.address,city: formval.city,state: formval.state,zip: formval.zip,company: formval.company,note:formval.note,country:formval.country};
 
 
       this._http.post(link, data)

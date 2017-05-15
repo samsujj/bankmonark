@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {Http} from "@angular/http";
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
+import {forEach} from "@angular/router/src/utils/collection";
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -51,7 +52,7 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   getUserDetails(){
-    var link = 'http://132.148.90.242:2007/admin-details';
+    var link = 'http://132.148.90.242:2007/userdetailsfull';
     var data = {_id : this.userid};
 
 
@@ -151,7 +152,7 @@ export class AdminDashboardComponent implements OnInit {
     var description = '';
     if(item.type == 1 && item.transfer_from != ''){
       description += 'Transfer money from account: '+item.transfer_from;
-    }else if(item.type == 2 && item.transfer_to != ''){
+    }else if((item.type == 2 || item.type == 3) && item.transfer_to != ''){
       description += 'Transfer money to account: '+item.transfer_to;
     }else{
       description = 'Added by Admin';
@@ -159,6 +160,8 @@ export class AdminDashboardComponent implements OnInit {
 
     return description;
   }
+
+
 
   getStatus(item){
     if(item.status == 1)
@@ -180,5 +183,30 @@ export class AdminDashboardComponent implements OnInit {
       return 'Inactive';
     }
   }
+
+    getStateName(item){
+        var statedet = item.statedet;
+
+        if(statedet.length){
+            if(typeof(statedet[0]) != 'undefined'){
+                return statedet[0]['s_st_name'];
+            }
+        }
+        return '';
+    }
+
+    getCountryName(item){
+        var countrydet = item.countrydet;
+
+        if(countrydet.length){
+            if(typeof(countrydet[0]) != 'undefined'){
+                return countrydet[0]['s_name'];
+            }
+        }
+        return '';
+    }
+
+
+
 
 }
